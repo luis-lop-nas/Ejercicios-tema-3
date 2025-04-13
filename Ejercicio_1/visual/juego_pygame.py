@@ -1,16 +1,16 @@
 import pygame
-import time
 from hanoi import JuegoHanoi
 from colores import *
 
 ANCHO_VENTANA = 800
 ALTO_VENTANA = 600
-FPS = 2
+FPS = 60
 
 NUM_PIEDRAS = 5
 ALTURA_PIEDRA = 20
 ANCHO_BASE = 200
 ESPACIADO = 250
+DELAY = 500  # milisegundos entre movimientos
 
 class VisualizadorHanoi:
     def __init__(self, num_piedras):
@@ -19,7 +19,6 @@ class VisualizadorHanoi:
         pygame.display.set_caption("Puzzle de la Pirámide de Piedras Preciosas")
         self.reloj = pygame.time.Clock()
         self.juego = JuegoHanoi(num_piedras)
-        self.juego.resolver()
         self.movimientos = self.juego.obtener_movimientos()
         self.pilas = self.juego.obtener_pilas()
 
@@ -42,21 +41,24 @@ class VisualizadorHanoi:
     def animar_movimientos(self):
         for origen, destino in self.movimientos:
             self.dibujar_pilas()
-            time.sleep(0.5)
+            pygame.time.delay(DELAY)
             destino.push(origen.pop())
             self.dibujar_pilas()
-            time.sleep(0.5)
+            pygame.time.delay(DELAY)
 
     def ejecutar(self):
-        ejecutando = True
         self.dibujar_pilas()
-        time.sleep(1)
+        pygame.time.delay(1000)
         self.animar_movimientos()
 
+        ejecutando = True
         while ejecutando:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
                     ejecutando = False
+                elif evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_ESCAPE:
+                        ejecutando = False
 
             self.reloj.tick(FPS)
 
