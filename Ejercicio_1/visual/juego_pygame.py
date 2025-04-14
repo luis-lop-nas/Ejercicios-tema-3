@@ -71,7 +71,7 @@ class VisualizadorHanoi:
                 pygame.draw.rect(self.ventana, (255, 0, 0), (x_base, 90, ANCHO_BASE, 420), 3)
             pygame.draw.rect(self.ventana, GRIS, (x_base + ANCHO_BASE // 2 - 5, 100, 10, 400))  # soporte
 
-            for j, piedra in enumerate(reversed(pila.items)):  # reversed() para invertir el orden de las piedras
+            for j, piedra in enumerate(reversed(pila.items)):  # Usar reversed() para dibujar de abajo hacia arriba
                 ancho_piedra = piedra * (ANCHO_BASE // self.num_piedras)
                 x = x_base + ANCHO_BASE // 2 - ancho_piedra // 2
                 y = ALTO_VENTANA - (j + 1) * ALTURA_PIEDRA - 50
@@ -146,8 +146,8 @@ class VisualizadorHanoi:
                     if evento.key == pygame.K_ESCAPE:
                         ejecutando = False
                     elif evento.key == pygame.K_r and victoria:
-                        self.__init__(self.num_piedras)
-                        self.ejecutar()
+                        self.__init__(self.num_piedras)  # Reinicia el juego
+                        self.ejecutar()  # Ejecuta nuevamente
                         return
                 elif evento.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
@@ -169,7 +169,7 @@ class VisualizadorHanoi:
                             movimientos_realizados += 1
                         seleccionada = None
 
-                        if len(self.destino) == self.num_piedras:
+                        if len(destino.items) == self.num_piedras:
                             self.dibujar_pilas()
                             if mejor_puntaje is None or movimientos_realizados < mejor_puntaje:
                                 self.guardar_record(self.num_piedras, movimientos_realizados)
