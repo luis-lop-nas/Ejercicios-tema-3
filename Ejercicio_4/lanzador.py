@@ -1,5 +1,34 @@
 from polinomio import Polinomio
-from operaciones import restar_polinomios, dividir_polinomios, eliminar_termino, existe_termino
+from operaciones import restar_polinomios, eliminar_termino, existe_termino
+
+def dividir_polinomios(dividendo, divisor):
+    cociente = Polinomio()
+    resto = Polinomio()
+    for exp, coef in dividendo.terminos.items():
+        resto.agregar_termino(coef, exp)
+
+    exp_dvs = max(divisor.terminos)
+    coef_dvs = divisor.terminos[exp_dvs]
+
+    while resto.terminos and max(resto.terminos) >= exp_dvs:
+        exp_div = max(resto.terminos)
+        coef_div = resto.terminos[exp_div]
+
+        nuevo_exp = exp_div - exp_dvs
+        nuevo_coef = coef_div / coef_dvs
+        cociente.agregar_termino(nuevo_coef, nuevo_exp)
+
+        # Multiplicar divisor por el nuevo término y restar del resto
+        temp = Polinomio()
+        for exp, coef in divisor.terminos.items():
+            temp.agregar_termino(nuevo_coef * coef, exp + nuevo_exp)
+        for exp, coef in temp.terminos.items():
+            resto.agregar_termino(-coef, exp)
+
+        # Limpiar coeficientes cercanos a cero
+        resto.terminos = {exp: coef for exp, coef in resto.terminos.items() if abs(coef) > 1e-10}
+
+    return cociente, resto
 
 def ejecutar():
     print("✨ Bienvenido al ejercicio 4: La Matemática de los Encantamientos ✨")
