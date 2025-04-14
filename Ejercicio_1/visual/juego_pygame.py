@@ -122,6 +122,8 @@ class VisualizadorHanoi:
             self.ventana.fill(BLANCO)
             self.dibujar_pilas(seleccionada)
 
+            self.dibujar_pilas(seleccionada)
+
             font = pygame.font.SysFont(None, 24)
             msg = f"Movimientos: {movimientos_realizados}"
             if mejor_puntaje is not None:
