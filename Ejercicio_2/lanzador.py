@@ -3,6 +3,12 @@ from determinante import determinante_recursivo, determinante_iterativo
 import random
 
 def ejecutar():
+    print("📘 Bienvenido al Ejercicio 2: El Secreto de la Cifra Mágica 📘")
+    print("Te encuentras frente a una antigua matriz encantada, custodia de un número sagrado...")
+    while True:
+        if input("Pulsa ENTER para desvelar el determinante oculto.\n") == "":
+            break
+
     while True:
         try:
             n = int(input("Introduce el tamaño de la matriz cuadrada (n x n): "))
