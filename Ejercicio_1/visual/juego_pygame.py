@@ -71,7 +71,7 @@ class VisualizadorHanoi:
                 pygame.draw.rect(self.ventana, (255, 0, 0), (x_base, 90, ANCHO_BASE, 420), 3)
             pygame.draw.rect(self.ventana, GRIS, (x_base + ANCHO_BASE // 2 - 5, 100, 10, 400))  # soporte
 
-            for j, piedra in enumerate(reversed(pila.items)):
+            for j, piedra in enumerate(reversed(pila.items)):  # reversed() para invertir el orden de las piedras
                 ancho_piedra = piedra * (ANCHO_BASE // self.num_piedras)
                 x = x_base + ANCHO_BASE // 2 - ancho_piedra // 2
                 y = ALTO_VENTANA - (j + 1) * ALTURA_PIEDRA - 50
