@@ -41,27 +41,63 @@ class VisualizadorHanoi:
 
         pygame.display.flip()
 
-    def animar_movimientos(self):
-        for origen, destino in self.movimientos:
-            self.dibujar_pilas()
-            pygame.time.delay(DELAY)
-            destino.push(origen.pop())
-            self.dibujar_pilas()
-            pygame.time.delay(DELAY)
-
     def ejecutar(self):
-        self.dibujar_pilas()
-        pygame.time.delay(1000)
-        self.animar_movimientos()
+        print("🔷 Puzzle de la Pirámide de Piedras Preciosas 🔷")
+        print("En una antigua cámara secreta egipcia, deberás trasladar todas las piedras de una columna a otra.")
+        print("Reglas del juego:")
+        print("- Solo puedes mover una piedra a la vez.")
+        print("- No puedes colocar una piedra más grande sobre una más pequeña.")
+        print("- Usa la lógica para completar el puzzle con el menor número de movimientos posibles.")
+        input("Pulsa ENTER para comenzar la visualización del puzzle...\n")
 
+        seleccionada = None
+        movimientos_realizados = 0
         ejecutando = True
+
         while ejecutando:
+            self.ventana.fill(BLANCO)
+            self.dibujar_pilas()
+
+            font = pygame.font.SysFont(None, 24)
+            msg = f"Movimientos: {movimientos_realizados}"
+            if seleccionada is not None:
+                msg += " | Selecciona pila de destino"
+            texto = font.render(msg, True, (0, 0, 0))
+            self.ventana.blit(texto, (10, 10))
+
+            pygame.display.flip()
+
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
                     ejecutando = False
-                elif evento.type == pygame.KEYDOWN:
-                    if evento.key == pygame.K_ESCAPE:
-                        ejecutando = False
+                elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
+                    ejecutando = False
+                elif evento.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    pila_index = x // ESPACIADO
+                    if pila_index > 2:
+                        pila_index = 2
+
+                    if seleccionada is None:
+                        if not self.pilas[pila_index].is_empty():
+                            seleccionada = pila_index
+                    else:
+                        origen = self.pilas[seleccionada]
+                        destino = self.pilas[pila_index]
+                        if origen.is_empty():
+                            pass  # movimiento inválido
+                        elif destino.is_empty() or origen.peek() < destino.peek():
+                            destino.push(origen.pop())
+                            movimientos_realizados += 1
+                        seleccionada = None
+
+                        if len(self.destino) == self.num_piedras:
+                            self.dibujar_pilas()
+                            texto = font.render(f"¡Puzzle resuelto en {movimientos_realizados} movimientos!", True, (0, 100, 0))
+                            self.ventana.blit(texto, (10, 40))
+                            pygame.display.flip()
+                            pygame.time.delay(3000)
+                            ejecutando = False
 
             self.reloj.tick(FPS)
 
