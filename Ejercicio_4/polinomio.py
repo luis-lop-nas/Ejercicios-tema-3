@@ -29,3 +29,5 @@ class Polinomio:
             else:
                 expresion.append(f"{coef}x^{exp}")
         print(" + ".join(expresion).replace("+ -", "- "))
+
+
