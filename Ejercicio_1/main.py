@@ -1,5 +1,5 @@
-from hanoi import JuegoHanoi
+from juego_pygame import VisualizadorHanoi
 
 if __name__ == "__main__":
-    juego = JuegoHanoi(num_piedras=5)  # Cambia a 74 si quieres el reto completo
-    juego.resolver()
+    visualizador = VisualizadorHanoi(num_piedras=5)
+    visualizador.ejecutar()

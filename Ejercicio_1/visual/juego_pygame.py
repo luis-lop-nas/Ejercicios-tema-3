@@ -1,6 +1,6 @@
 import pygame
 from hanoi import JuegoHanoi
-from colores import *
+from colores import BLANCO, GRIS, color_piedra
 
 ANCHO_VENTANA = 800
 ALTO_VENTANA = 600
@@ -19,8 +19,10 @@ class VisualizadorHanoi:
         pygame.display.set_caption("Puzzle de la Pirámide de Piedras Preciosas")
         self.reloj = pygame.time.Clock()
         self.juego = JuegoHanoi(num_piedras)
+        self.juego.resolver()
         self.movimientos = self.juego.obtener_movimientos()
         self.pilas = self.juego.obtener_pilas()
+        self.num_piedras = num_piedras
 
     def dibujar_pilas(self):
         self.ventana.fill(BLANCO)
@@ -31,10 +33,11 @@ class VisualizadorHanoi:
             pygame.draw.rect(self.ventana, GRIS, (x_base + ANCHO_BASE // 2 - 5, 100, 10, 400))  # soporte
 
             for j, piedra in enumerate(reversed(pila.items)):
-                ancho_piedra = piedra * (ANCHO_BASE // NUM_PIEDRAS)
+                ancho_piedra = piedra * (ANCHO_BASE // self.num_piedras)
                 x = x_base + ANCHO_BASE // 2 - ancho_piedra // 2
                 y = ALTO_VENTANA - (j + 1) * ALTURA_PIEDRA - 50
-                pygame.draw.rect(self.ventana, AZUL, (x, y, ancho_piedra, ALTURA_PIEDRA))
+                color = color_piedra(piedra)
+                pygame.draw.rect(self.ventana, color, (x, y, ancho_piedra, ALTURA_PIEDRA))
 
         pygame.display.flip()
 
@@ -63,8 +66,3 @@ class VisualizadorHanoi:
             self.reloj.tick(FPS)
 
         pygame.quit()
-
-
-if __name__ == "__main__":
-    visualizador = VisualizadorHanoi(NUM_PIEDRAS)
-    visualizador.ejecutar()
