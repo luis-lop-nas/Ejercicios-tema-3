@@ -15,6 +15,41 @@ def ejecutar():
         Nave("Orion", 200, 6, 15)
     ]
 
+    respuesta = input("¿Quieres modificar la lista de naves? (si/no): ").strip().lower()
+    if respuesta == "si":
+        while True:
+            accion = input("¿Qué quieres hacer? (añadir / borrar / modificar / salir): ").strip().lower()
+            if accion == "salir":
+                break
+
+            if accion == "añadir":
+                nombre = input("Nombre de la nueva nave: ")
+                longitud = float(input("Longitud de la nave: "))
+                tripulantes = int(input("Cantidad de tripulantes: "))
+                pasajeros = int(input("Cantidad de pasajeros: "))
+                naves.append(Nave(nombre, longitud, tripulantes, pasajeros))
+
+            elif accion == "borrar":
+                nombre = input("Nombre de la nave a borrar: ")
+                naves = [n for n in naves if n.nombre != nombre]
+
+            elif accion == "modificar":
+                nombre = input("Nombre de la nave a modificar: ")
+                for nave in naves:
+                    if nave.nombre == nombre:
+                        campo = input("¿Qué quieres modificar? (nombre / longitud / tripulantes / pasajeros): ").strip().lower()
+                        if campo == "nombre":
+                            nave.nombre = input("Nuevo nombre: ")
+                        elif campo == "longitud":
+                            nave.longitud = float(input("Nueva longitud: "))
+                        elif campo == "tripulantes":
+                            nave.tripulantes = int(input("Nuevo número de tripulantes: "))
+                        elif campo == "pasajeros":
+                            nave.pasajeros = int(input("Nuevo número de pasajeros: "))
+                        break
+                else:
+                    print("Nave no encontrada.")
+
     print("=== Ordenadas por nombre (ascendente) ===")
     for nave in GestorNaves.ordenar_por_nombre(naves):
         nave.mostrar_info()
