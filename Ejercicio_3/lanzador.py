@@ -9,6 +9,8 @@ def ejecutar():
             break
 
     print("Aquí tienes una lista de naves inscritas en el rally:\n")
+    for nave in naves:
+        nave.mostrar_info()
 
     naves = [
         Nave("Cometa Veloz", 120, 5, 20),
@@ -60,11 +62,11 @@ def ejecutar():
 
     print("=== Ordenadas por nombre (ascendente) ===")
     for nave in GestorNaves.ordenar_por_nombre(naves):
-        nave.mostrar_info()
+        print(nave.nombre)
 
     print("=== Ordenadas por longitud (descendente) ===")
     for nave in GestorNaves.ordenar_por_longitud_desc(naves):
-        nave.mostrar_info()
+        print(nave.nombre)
 
     print("=== Info de 'Cometa Veloz' y 'Titán del Cosmos' ===")
     for nave in GestorNaves.buscar_por_nombre(naves, ["Cometa Veloz", "Titán del Cosmos"]):
@@ -72,7 +74,7 @@ def ejecutar():
 
     print("=== Top 5 naves con más pasajeros ===")
     for nave in GestorNaves.top_pasajeros(naves):
-        nave.mostrar_info()
+        print(f"{nave.nombre} - Pasajeros: {nave.pasajeros}")
 
     print("=== Nave con mayor cantidad de tripulantes ===")
     GestorNaves.nave_mayor_tripulacion(naves).mostrar_info()
