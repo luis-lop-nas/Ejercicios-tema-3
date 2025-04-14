@@ -1,6 +1,6 @@
 import pygame
 from hanoi import JuegoHanoi
-from colores import BLANCO, GRIS, color_piedra
+from visual.colores import BLANCO, GRIS, color_piedra
 
 ANCHO_VENTANA = 800
 ALTO_VENTANA = 600
