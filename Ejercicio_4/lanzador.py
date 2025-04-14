@@ -2,6 +2,13 @@ from polinomio import Polinomio
 from operaciones import restar_polinomios, dividir_polinomios, eliminar_termino, existe_termino
 
 def ejecutar():
+    print("✨ Bienvenido al ejercicio 4: La Matemática de los Encantamientos ✨")
+    print("Has abierto un grimorio arcano con secretos algebraicos milenarios...")
+    while True:
+        continuar = input("Pulsa ENTER para desbloquear los misterios del polinomio mágico.\n")
+        if continuar == "":
+            break
+
     # Crear polinomios de ejemplo
     p1 = Polinomio()
     p1.agregar_termino(3, 2)
