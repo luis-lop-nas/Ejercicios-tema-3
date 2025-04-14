@@ -2,6 +2,14 @@ from nave import Nave
 from gestor_naves import GestorNaves
 
 def ejecutar():
+    print("🚀 Bienvenido al Ejercicio 3: El Gran Rally Espacial 🚀")
+    print("Te has unido a una legendaria carrera entre galaxias donde cada nave tiene una historia...")
+    while True:
+        if input("Pulsa ENTER para comenzar la misión.\n") == "":
+            break
+
+    print("Aquí tienes una lista de naves inscritas en el rally:\n")
+
     naves = [
         Nave("Cometa Veloz", 120, 5, 20),
         Nave("Titán del Cosmos", 300, 10, 50),
