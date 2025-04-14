@@ -16,9 +16,7 @@ DELAY = 500  # milisegundos entre movimientos
 class VisualizadorHanoi:
     def __init__(self, num_piedras):
         pygame.init()
-        self.sonido_valido = pygame.mixer.Sound("sonidos/movimiento_valido.wav")
-        self.sonido_invalido = pygame.mixer.Sound("sonidos/movimiento_invalido.wav")
-        self.sonido_victoria = pygame.mixer.Sound("sonidos/victoria.wav")
+        # Sonidos eliminados para probar sin ellos
         self.ventana = pygame.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
         pygame.display.set_caption("Puzzle de la Pirámide de Piedras Preciosas")
         self.reloj = pygame.time.Clock()
@@ -164,18 +162,15 @@ class VisualizadorHanoi:
                         origen = self.pilas[seleccionada]
                         destino = self.pilas[pila_index]
                         if origen.is_empty():
-                            self.sonido_invalido.play()  # movimiento inválido
                             mensaje_error = "Movimiento inválido"
                             tiempo_error = pygame.time.get_ticks()
                         elif destino.is_empty() or origen.peek() < destino.peek():
                             destino.push(origen.pop())
-                            self.sonido_valido.play()  # movimiento válido
                             movimientos_realizados += 1
                         seleccionada = None
 
                         if len(self.destino) == self.num_piedras:
                             self.dibujar_pilas()
-                            self.sonido_victoria.play()  # puzzle resuelto
                             if mejor_puntaje is None or movimientos_realizados < mejor_puntaje:
                                 self.guardar_record(self.num_piedras, movimientos_realizados)
                                 mejor_puntaje = movimientos_realizados
